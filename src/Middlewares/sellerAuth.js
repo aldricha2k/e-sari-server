@@ -9,7 +9,7 @@ module.exports = (req, res, next) => {
         return res.status(401).send({ error: 'You muse be logged in.' });
     }
 
-    const token = authorization.replace('Bearer', '');
+    const token = authorization.replace('Bearer ', '');
     jwt.verify(token, 'SECRET_KEY', async (err, payload) => {
         if(err){
             return res.status(401).send({ error: 'You must be logged in.' });
