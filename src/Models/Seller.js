@@ -16,7 +16,7 @@ const SellerSchema = new mongoose.Schema({
         type: Number
     },
     password: {
-        type: Number
+        type: String
     },
     address: {
         region: String,
