@@ -43,4 +43,26 @@ router.post('/register_seller', async (req, res) => {
     }
 });
 
+router.post('/login_seller', async (req, res) => {
+    const { email, password } = req.body;
+
+    if(!email || password){
+        return res.status(422).send({ error: 'Must provide email and password'});
+    }
+
+    const seller = await Seller.findOne({ email })
+    if(!seller){
+        return res.status(422).send({ error: 'User not found.'});
+    };
+
+    try{
+        await seller.comparePassword(password);
+        const token = jwt.sign({ sellerId: seller._id}, 'SECRET_KEY');
+        res.send({ token });
+    }
+    catch(e){
+        return res.status(422).send({ error: "Invalid Password" });
+    }
+});
+
 module.exports = router;
