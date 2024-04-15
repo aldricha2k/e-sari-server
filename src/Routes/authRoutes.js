@@ -36,7 +36,7 @@ router.post('/register_seller', async (req, res) => {
         });
         await seller.save();
         const token = jwt.sign({ sellerId: seller._id }, 'SECRET_KEY');
-        res.send({ token: token });
+        res.send({ token, seller });
     }
     catch(err){
         return res.status(422).send(err.message);
@@ -63,6 +63,22 @@ router.post('/login_seller', async (req, res) => {
     catch(e){
         return res.status(422).send({ error: "Invalid Password" });
     }
+});
+
+router.get('/fetch_seller', async (req, res) => {
+    const { id } = req.body;
+    const seller = await Seller.findOne({ _id: id });
+    
+    if(!seller){
+        return res.status(422).send({ error: 'User not found.'});
+    }
+
+    try{
+        res.send({ seller });
+    }
+    catch(e){
+        return res.status(422).send({ error: e});
+    };
 });
 
 module.exports = router;
