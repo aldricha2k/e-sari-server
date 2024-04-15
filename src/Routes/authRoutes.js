@@ -66,7 +66,7 @@ router.post('/login_seller', async (req, res) => {
 });
 
 router.get('/fetch_seller', async (req, res) => {
-    const { _id } = req.query;
+    const _id = req.params._id;
     const seller = await Seller.findOne({ _id });
 
     if(!seller){
