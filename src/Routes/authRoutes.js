@@ -58,7 +58,7 @@ router.post('/login_seller', async (req, res) => {
     try{
         await seller.comparePassword(password);
         const token = jwt.sign({ sellerId: seller._id}, 'SECRET_KEY');
-        res.send({ seller });
+        res.send({ token, seller });
     }
     catch(e){
         return res.status(422).send({ error: "Invalid Password" });
