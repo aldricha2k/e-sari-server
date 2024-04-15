@@ -66,8 +66,8 @@ router.post('/login_seller', async (req, res) => {
 });
 
 router.get('/fetch_seller', async (req, res) => {
-    const { id } = req.query;
-    const seller = await Seller.findOne({ _id: id });
+    const { _id } = req.query;
+    const seller = await Seller.findOne({ _id });
 
     if(!seller){
         return res.status(422).send({ error: 'User not found.'});
