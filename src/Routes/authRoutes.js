@@ -74,9 +74,11 @@ router.get('/fetch_seller', async (req, res) => {
     }
 
     try{
-        res.send({ seller });
+        const token = jwt.sign({ sellerId: seller._id}, 'SECRET_KEY');
+        res.send({ token, seller });
     }
     catch(e){
+        console.error(e);
         return res.status(422).send({ error: e});
     };
 });
