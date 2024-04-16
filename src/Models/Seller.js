@@ -24,7 +24,23 @@ const SellerSchema = new mongoose.Schema({
         city: String,
         barangay: String,
         street: String
-    }
+    },
+    products: [{
+        product_name: String,
+        product_description: String,
+        category: String,
+        brand: String,
+        price: Number,
+        stock: Number,
+        rating: {
+            type: Number,
+            default: 0
+        },
+        sold: {
+            type: Number,
+            default: 0
+        }
+    }]
 });
 
 SellerSchema.pre('save', function(next){

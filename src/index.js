@@ -6,11 +6,13 @@ const bodyParser = require('body-parser');
 
 const sellerAuth = require('./Middlewares/sellerAuth');
 const authRoutes = require('./Routes/authRoutes');
+const productRoutes = require('./Routes/productRoutes');
 
 const app = express();
 
 app.use(bodyParser.json());
 app.use(authRoutes);
+app.use(productRoutes);
 
 const mongoUri = 'mongodb+srv://Aldrich:Stg5cUk009iUp6K7@e-commerce.pcjkral.mongodb.net/';
 
