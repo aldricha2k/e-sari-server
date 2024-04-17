@@ -15,7 +15,7 @@ router.post('/add_products', async (req, res) => {
         stock
     } = req.body;
 
-    const products = {
+    const product = {
         product_name,
         product_description,
         category,
@@ -29,7 +29,7 @@ router.post('/add_products', async (req, res) => {
             _id
         },{
             $push: {
-                products
+                products : product
             }
         },{
             new: true
