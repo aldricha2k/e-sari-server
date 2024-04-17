@@ -4,6 +4,19 @@ const mongoose = require('mongoose');
 const Seller = mongoose.model('Seller');
 const router = express.Router();
 
+router.get('/fetch_products', async (req, res) => {
+    const { _id } = req.query;
+
+    try{
+        const fetchProduct = await Seller.findOne({ _id });
+        res.send(fetchProduct);
+    }
+    catch(err){
+        console.error(err);
+        res.status(500).send({ error: err});
+    }
+});
+
 router.post('/add_products', async (req, res) => {
     const {
         _id,
