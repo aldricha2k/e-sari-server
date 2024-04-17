@@ -13,9 +13,9 @@ router.post('/add_products', async (req, res) => {
         brand,
         price,
         stock
-    } = req.body
+    } = req.body;
 
-    const product = {
+    const products = {
         product_name,
         product_description,
         category,
@@ -29,7 +29,7 @@ router.post('/add_products', async (req, res) => {
             _id
         },{
             $push: {
-                product
+                products
             }
         })
         res.send(newProduct);
