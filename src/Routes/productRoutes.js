@@ -73,12 +73,12 @@ router.put('/edit_product', async (req, res) => {
             "products._id": prodId,
         },{
             $set: {
-                product_name,
-                product_description,
-                category,
-                brand,
-                price,
-                stock
+                "products.$.product_name": product_name,
+                "products.$.product_description": product_description,
+                "products.$.category": category,
+                "products.$.brand": brand,
+                "products.$.price": price,
+                "products.$.stock": stock
             }
         },{
                 new: true
