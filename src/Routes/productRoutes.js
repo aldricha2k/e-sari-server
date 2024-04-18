@@ -91,7 +91,7 @@ router.put('/edit_product', async (req, res) => {
     }
 });
 
-router.delete('/delete_product', async (req, res) => {
+router.put('/delete_product', async (req, res) => {
     const {
         _id,
         prodId 
