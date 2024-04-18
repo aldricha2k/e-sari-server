@@ -87,8 +87,35 @@ router.put('/edit_product', async (req, res) => {
     }
     catch(err){
         console.error(err);
-        res.status(500).send({ error: err})
+        res.status(500).send({ error: err })
     }
-})
+});
+
+router.delete('/delete_product', async (req, res) => {
+    const {
+        _id,
+        prodId 
+    } = req.body;
+
+    try{
+        deleteProduct = await Seller.findOneAndUpdate({
+            _id
+        },{
+            $pull: {
+                products: {
+                    _id: prodId
+                }
+            }
+        },{
+            new: true
+        });
+
+        res.send(deleteProduct);
+    }
+    catch(err){
+        console.error(err);
+        res.status(500).send({ error: err });
+    }
+});
 
 module.exports = router;
