@@ -37,7 +37,7 @@ router.post('/add_products', async (req, res) => {
     } = req.body;
 
     try{
-        await cloudinary.uploader.upload(product_image, { public_id, _id }, (err, result) => {
+        await cloudinary.uploader.upload(product_image, (err, result) => {
             console.log(result);
         })
     }
