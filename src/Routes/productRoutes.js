@@ -20,6 +20,7 @@ router.get('/fetch_products', async (req, res) => {
 router.post('/add_products', async (req, res) => {
     const {
         _id,
+        product_image,
         product_name,
         product_description,
         category,
@@ -29,6 +30,7 @@ router.post('/add_products', async (req, res) => {
     } = req.body;
 
     const product = {
+        product_image,
         product_name,
         product_description,
         category,
