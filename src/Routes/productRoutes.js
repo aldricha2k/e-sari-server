@@ -1,15 +1,8 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const cloudinary = require('cloudinary').v2; 
 
 const Seller = mongoose.model('Seller');
 const router = express.Router();
-
-cloudinary.config({ 
-    cloud_name: 'doquxuj1b', 
-    api_key: '944233345565796', 
-    api_secret: 'jkwZ7jWAT3m1H78jqewf5gV_aDY' 
-  });
 
 router.get('/fetch_products', async (req, res) => {
     const { _id } = req.query;
@@ -36,8 +29,6 @@ router.post('/add_products', async (req, res) => {
         stock
     } = req.body;
 
-    cloudinary.uploader.upload(product_image).then( result => console.log(result) );
-    /*
     const product = {
         product_image,
         product_name,
@@ -64,7 +55,6 @@ router.post('/add_products', async (req, res) => {
         console.error(err);
         res.status(500).send({ error: err})
     }
-    */
 });
 
 router.put('/edit_product', async (req, res) => {
