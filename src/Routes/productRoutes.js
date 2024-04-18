@@ -36,15 +36,7 @@ router.post('/add_products', async (req, res) => {
         stock
     } = req.body;
 
-    try{
-        await cloudinary.uploader.upload(product_image, (err, result) => {
-            console.log(result);
-        })
-    }
-    catch(e){
-        console.error(e);
-        res.status(500).send({ error: e });
-    }
+    await cloudinary.uploader.upload(product_image).then( result => console.log(result) );
     /*
     const product = {
         product_image,
