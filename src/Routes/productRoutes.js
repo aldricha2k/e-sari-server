@@ -53,6 +53,42 @@ router.post('/add_products', async (req, res) => {
         console.error(err);
         res.status(500).send({ error: err})
     }
+});
+
+router.put('/edit_product', async (req, res) => {
+    const {
+        _id,
+        prodId,
+        product_name,
+        product_description,
+        category,
+        brand,
+        price,
+        stock
+    } = req.body;
+
+    try{
+        const UpdateProduct = await Seller.findOneAndUpdate({
+            _id,
+            "products._id": prodId,
+        },{
+            $set: {
+                product_name,
+                product_description,
+                category,
+                brand,
+                price,
+                stock
+            }
+        },{
+                new: true
+        })
+        res.send(UpdateProduct);
+    }
+    catch(err){
+        console.error(err);
+        res.status(500).send({ error: err})
+    }
 })
 
 module.exports = router;
