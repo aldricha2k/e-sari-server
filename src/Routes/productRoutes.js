@@ -43,7 +43,7 @@ router.post('/add_products', async (req, res) => {
     }
     catch(e){
         console.error(e);
-        res.status(500).send({ error: err });
+        res.status(500).send({ error: e });
     }
     /*
     const product = {
