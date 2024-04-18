@@ -98,7 +98,7 @@ router.delete('/delete_product', async (req, res) => {
     } = req.body;
 
     try{
-        deleteProduct = await Seller.findOneAndUpdate({
+        const DeleteProduct = await Seller.findOneAndUpdate({
             _id
         },{
             $pull: {
@@ -110,7 +110,7 @@ router.delete('/delete_product', async (req, res) => {
             new: true
         });
 
-        res.send(deleteProduct);
+        res.send(DeleteProduct);
     }
     catch(err){
         console.error(err);
