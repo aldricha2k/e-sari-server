@@ -21,6 +21,7 @@ router.post('/add_products', async (req, res) => {
     const {
         _id,
         product_image,
+        image_id,
         product_name,
         product_description,
         category,
@@ -31,6 +32,7 @@ router.post('/add_products', async (req, res) => {
 
     const product = {
         product_image,
+        image_id,
         product_name,
         product_description,
         category,
