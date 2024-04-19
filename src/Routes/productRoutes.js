@@ -1,8 +1,26 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const cloudinary = require('cloudinary').v2;
 
 const Seller = mongoose.model('Seller');
 const router = express.Router();
+
+cloudinary.config({ 
+    cloud_name: 'doquxuj1b',
+    api_key: '944233345565796',
+    api_secret: 'jkwZ7jWAT3m1H78jqewf5gV_aDY'
+});
+
+const generateCloudinarySignature = (params_to_sign) => {
+    return cloudinary.utils.api_sign_request(params_to_sign, 'jkwZ7jWAT3m1H78jqewf5gV_aDY');
+};
+
+const params_to_sign = {
+    timeStamp: Math.round( new Date().getTime()/1000 ),
+}
+
+const signature = generateCloudinarySignature(params_to_sign);
+console.log(signature);
 
 router.get('/fetch_products', async (req, res) => {
     const { _id } = req.query;
