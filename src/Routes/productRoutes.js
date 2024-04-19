@@ -31,8 +31,8 @@ router.post('/add_products', async (req, res) => {
     } = req.body;
 
     const product = {
+        _id: image_id,
         product_image,
-        image_id,
         product_name,
         product_description,
         category,
