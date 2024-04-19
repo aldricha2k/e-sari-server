@@ -63,6 +63,8 @@ router.put('/edit_product', async (req, res) => {
     const {
         _id,
         prodId,
+        product_image,
+        image_id,
         product_name,
         product_description,
         category,
@@ -78,6 +80,8 @@ router.put('/edit_product', async (req, res) => {
         },{
             $set: {
                 "products.$.product_name": product_name,
+                "products.$.product_image": product_image,
+                'products.$.image_id': image_id,
                 "products.$.product_description": product_description,
                 "products.$.category": category,
                 "products.$.brand": brand,
