@@ -133,11 +133,11 @@ router.put('/delete_product', async (req, res) => {
     data.append('timestamp', timeStamp);
 
     try{
-        const response = await axios.post(`https://api.cloudinary.com/v1_1/${cloud_name}/image/destroy`, data);
-        console.log(response);
+        await axios.post(`https://api.cloudinary.com/v1_1/${cloud_name}/image/destroy`, data);
+        console.log('success');
     }
     catch(e){
-        console.log(e);
+        console.log('error');
     }
 
     try{
