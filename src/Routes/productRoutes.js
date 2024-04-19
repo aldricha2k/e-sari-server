@@ -126,7 +126,7 @@ router.put('/delete_product', async (req, res) => {
 
     const timeStamp = new Date().getTime();
     const signature = generateCloudinarySignature(timeStamp, imageId);
-    const data = FormData();
+    const data = new FormData();
     data.append('public_id', imageId);
     data.append('signature', signature);
     data.append('api_key', api_key);
