@@ -111,12 +111,12 @@ router.put('/delete_product', async (req, res) => {
     const {
         _id,
         prodId,
-        imageId 
+        image_id 
     } = req.body;
 
 
     try{
-        cloudinary.api.delete_resources([imageId], { type: 'upload', resource_type: 'image'}).then(console.log); 
+        cloudinary.api.delete_resources([image_id], { type: 'upload', resource_type: 'image'}).then(console.log); 
         const DeleteProduct = await Seller.findOneAndUpdate({
             _id
         },{
