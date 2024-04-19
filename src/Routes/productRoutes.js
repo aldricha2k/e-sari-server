@@ -47,7 +47,7 @@ router.post('/add_products', async (req, res) => {
     }
 
     try{
-        cloudinary.uploader.upload(imageUri);
+        cloudinary.uploader.upload(imageUri).then((res) => res.json()).then(data => console.log(data));
         /*const newProduct = await Seller.findOneAndUpdate({
             _id
         },{
