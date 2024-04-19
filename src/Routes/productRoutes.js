@@ -52,7 +52,6 @@ router.post('/add_products', async (req, res) => {
                 stock
             }
         })
-        console.log(product);
     
         const newProduct = await Seller.findOneAndUpdate({
             _id
@@ -75,8 +74,8 @@ router.put('/edit_product', async (req, res) => {
     const {
         _id,
         prodId,
-        product_image,
-        image_id,
+        imageUri,
+        imageId,
         product_name,
         product_description,
         category,
@@ -86,14 +85,22 @@ router.put('/edit_product', async (req, res) => {
     } = req.body;
 
     try{
+        let newUri = '';
+        let newId = '';
+
+        await cloudinary.uploader.upload(imageUri, { public_id: imageId, overwrite: true }, ( error, result ) => {
+            newUri = result.secure_url;
+            newId = result.public_id;
+        });
+
         const UpdateProduct = await Seller.findOneAndUpdate({
             _id,
             "products._id": prodId,
         },{
             $set: {
                 "products.$.product_name": product_name,
-                "products.$.product_image": product_image,
-                'products.$.image_id': image_id,
+                "products.$.product_image": newUri,
+                'products.$.image_id': newId,
                 "products.$.product_description": product_description,
                 "products.$.category": category,
                 "products.$.brand": brand,
