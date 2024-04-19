@@ -38,21 +38,21 @@ router.post('/add_products', async (req, res) => {
     } = req.body;
 
     try{    
-        let cloudResponse = {};
+        let product = {};
 
-        cloudinary.uploader.upload(imageUri, ( error, result ) => {
-            console.log(result.secure_url);
-            console.log(result.public_id)
+        await cloudinary.uploader.upload(imageUri, ( error, result ) => {
+            product = {
+                product_image: result.secure_url,
+                image_id: result.public_id,
+                product_name,
+                product_description,
+                category,
+                brand,
+                price,
+                stock
+            }
         })
-
-        const product = {
-            product_name,
-            product_description,
-            category,
-            brand,
-            price,
-            stock
-        }
+        console.log(product);
     
         const newProduct = await Seller.findOneAndUpdate({
             _id
@@ -120,7 +120,7 @@ router.put('/delete_product', async (req, res) => {
 
 
     try{
-        cloudinary.api.delete_resources([image_id], { type: 'upload', resource_type: 'image'}).then(console.log); 
+        await cloudinary.api.delete_resources([image_id], { type: 'upload', resource_type: 'image'}).then(console.log); 
         const DeleteProduct = await Seller.findOneAndUpdate({
             _id
         },{
