@@ -26,9 +26,6 @@ router.get('/fetch_products', async (req, res) => {
 });
 
 router.post('/add_products', async (req, res) => {
-    let product_image = '';
-    let image_id = '';
-
     const {
         _id,
         imageUri,
@@ -40,15 +37,16 @@ router.post('/add_products', async (req, res) => {
         stock
     } = req.body;
 
-    try{
+    try{    
+        let cloudResponse = {};
+
         cloudinary.uploader.upload(imageUri, ( error, result ) => {
-            product_image = result.secure_url;
-            image_id = result.public_id;
+            cloudResponse = result;
         })
 
         const product = {
-            product_image,
-            image_id,
+            product_image: cloudResponse.secure_url,
+            image_id: cloudResponse.public_id,
             product_name,
             product_description,
             category,
