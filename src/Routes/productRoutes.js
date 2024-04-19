@@ -1,25 +1,15 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cloudinary = require('cloudinary').v2;
-const axios = require('axios');
 
 const Seller = mongoose.model('Seller');
 const router = express.Router();
-
-const cloud_name = 'doquxuj1b';
-const api_key = '944233345565796';
-const api_secret = 'jkwZ7jWAT3m1H78jqewf5gV_aDY';
 
 cloudinary.config({ 
     cloud_name: 'doquxuj1b',
     api_key: '944233345565796',
     api_secret: 'jkwZ7jWAT3m1H78jqewf5gV_aDY'
 });
-
-const generateCloudinarySignature = (timeStamp, public_id) => {
-    const stringtoSign = `public_id=${public_id}&timestamp=${timeStamp}${api_secret}`;
-    return stringtoSign;
-};
 
 
 router.get('/fetch_products', async (req, res) => {
@@ -124,23 +114,9 @@ router.put('/delete_product', async (req, res) => {
         imageId 
     } = req.body;
 
-    const timeStamp = new Date().getTime();
-    const signature = generateCloudinarySignature(timeStamp, imageId);
-    const data = new FormData();
-    data.append('public_id', imageId);
-    data.append('signature', signature);
-    data.append('api_key', api_key);
-    data.append('timestamp', timeStamp);
 
     try{
-        await axios.post(`https://api.cloudinary.com/v1_1/${cloud_name}/image/destroy`, data);
-        console.log('success');
-    }
-    catch(e){
-        console.log('error');
-    }
-
-    try{
+        cloudinary.api.delete_resources([imageId], { type: 'upload', resource_type: 'image'}).then(console.log); 
         const DeleteProduct = await Seller.findOneAndUpdate({
             _id
         },{
