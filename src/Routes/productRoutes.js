@@ -11,16 +11,18 @@ cloudinary.config({
     api_secret: 'jkwZ7jWAT3m1H78jqewf5gV_aDY'
 });
 
-const generateCloudinarySignature = (params_to_sign) => {
-    return cloudinary.utils.api_sign_request(params_to_sign, 'jkwZ7jWAT3m1H78jqewf5gV_aDY');
-};
-
-const params_to_sign = {
-    timeStamp: Math.round( new Date().getTime()/1000 ),
-}
-
-const signature = generateCloudinarySignature(params_to_sign);
-console.log(signature);
+router.get('/fetch_sign', async (req, res) => {
+    const generateCloudinarySignature = (params_to_sign) => {
+        return cloudinary.utils.api_sign_request(params_to_sign, 'jkwZ7jWAT3m1H78jqewf5gV_aDY');
+    };
+    
+    const params_to_sign = {
+        timeStamp: Math.round( new Date().getTime()/1000 ),
+    }
+    
+    const signature = generateCloudinarySignature(params_to_sign);
+    res.send(signature);
+})
 
 router.get('/fetch_products', async (req, res) => {
     const { _id } = req.query;
