@@ -26,8 +26,8 @@ const SellerSchema = new mongoose.Schema({
         street: String
     },
     products: [{
-        _id: String,
         product_image: String,
+        image_id: String,
         product_name: String,
         product_description: String,
         category: String,
