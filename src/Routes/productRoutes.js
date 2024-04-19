@@ -26,6 +26,9 @@ router.get('/fetch_products', async (req, res) => {
 });
 
 router.post('/add_products', async (req, res) => {
+    let product_image = '';
+    let image_id = '';
+
     const {
         _id,
         imageUri,
@@ -37,18 +40,26 @@ router.post('/add_products', async (req, res) => {
         stock
     } = req.body;
 
-    const product = {
-        product_name,
-        product_description,
-        category,
-        brand,
-        price,
-        stock
-    }
-
     try{
-        cloudinary.uploader.upload(imageUri).then((res) => res.json()).then(data => console.log(data));
-        /*const newProduct = await Seller.findOneAndUpdate({
+        cloudinary.uploader.upload(imageUri)
+        .then((res) => res.json())
+        .then(data => {
+                product_image = data.secure_url;
+                image_id = data.public_id;
+            }
+        );
+        const product = {
+            product_name,
+            product_image,
+            image_id,
+            product_description,
+            category,
+            brand,
+            price,
+            stock
+        }
+    
+        const newProduct = await Seller.findOneAndUpdate({
             _id
         },{
             $push: {
@@ -58,7 +69,6 @@ router.post('/add_products', async (req, res) => {
             new: true
         })
         res.send(newProduct);
-        */
     }
     catch(err){
         console.error(err);
