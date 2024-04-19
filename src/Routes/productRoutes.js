@@ -42,7 +42,8 @@ router.post('/add_products', async (req, res) => {
 
     try{
         cloudinary.uploader.upload(imageUri, ( error, result ) => {
-            console.log(result);
+            product_image = result.secure_url;
+            image_id = public_id;
         })
 
         const product = {
