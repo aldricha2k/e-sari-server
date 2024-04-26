@@ -26,10 +26,22 @@ const SellerSchema = new mongoose.Schema({
         street: String
     },
     products: [{
-        product_id,
-        ratings,
-        stock,
-        price
+        product_image: String,
+        image_id: String,
+        product_name: String,
+        product_description: String,
+        category: String,
+        brand: String,
+        price: Number,
+        stock: Number,
+        rating: {
+            type: Number,
+            default: 0
+        },
+        sold: {
+            type: Number,
+            default: 0
+        }
     }]
 });
 

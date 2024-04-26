@@ -3,7 +3,6 @@ const mongoose = require('mongoose');
 const cloudinary = require('cloudinary').v2;
 
 const Seller = mongoose.model('Seller');
-const Product = mongoose.model('Products');
 const router = express.Router();
 
 cloudinary.config({ 
@@ -34,14 +33,12 @@ router.post('/add_products', async (req, res) => {
         product_description,
         category,
         brand,
-        barcode,
         price,
         stock
     } = req.body;
 
     try{    
         let product = {};
-        let sProduct = {};
 
         await cloudinary.uploader.upload(imageUri, ( error, result ) => {
             product = {
@@ -51,13 +48,20 @@ router.post('/add_products', async (req, res) => {
                 product_description,
                 category,
                 brand,
-                barcode
+                price,
+                stock
             }
-        });
-
-        const newProduct = Product(product);
-        await newProduct.save();
-
+        })
+    
+        const newProduct = await Seller.findOneAndUpdate({
+            _id
+        },{
+            $push: {
+                products : product
+            }
+        },{
+            new: true
+        })
         res.send(newProduct);
     }
     catch(err){
