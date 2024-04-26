@@ -17,7 +17,7 @@ router.get('/fetch_products', async (req, res) => {
     const { _id } = req.query;
 
     try{
-        const fetchProduct = await Product.findOne({ seller_id: _id });
+        const fetchProduct = await Product.find({ seller_id: _id });
         res.send(fetchProduct);
     }
     catch(err){
