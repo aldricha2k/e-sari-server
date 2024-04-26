@@ -143,8 +143,10 @@ router.put('/delete_product', async (req, res) => {
         await Seller.findByIdAndUpdate(_id, {
             $pull: { products: { _id: prodId } }
         });
-        const deletedProduct = await Product.findByIdAndDelete(prodId);
-        res.send(deletedProduct);
+        await Product.findByIdAndDelete(prodId);
+        const fetchProduct = await Product.find({ seller_id: _id });
+        res.send(fetchProduct);
+
     }
     catch(err){
         console.error(err);
