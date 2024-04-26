@@ -26,10 +26,7 @@ const SellerSchema = new mongoose.Schema({
         street: String
     },
     products: [{
-        product_id: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'Product'
-        }
+        product_id: String
     }]
 });
 

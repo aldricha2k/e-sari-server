@@ -45,7 +45,7 @@ router.post('/add_products', async (req, res) => {
 
         await cloudinary.uploader.upload(imageUri, ( error, result ) => {
             product_image = result.secure_url;
-            image_id - result.public_id;
+            image_id = result.public_id;
         });
         
         const newProduct = new Product({
@@ -61,8 +61,22 @@ router.post('/add_products', async (req, res) => {
             barcode
         });
         await newProduct.save();
+        
+        let newSellProduct = {
+            product_id: newProduct._id
+        };
 
-        res.send(newProduct);
+        const sellerProduct = await Seller.findOneAndUpdate({
+            _id
+        },{
+            $push: {
+                newSellProduct
+            }
+        },{
+            new: true
+        });
+
+        res.send(sellerProduct);
     }
     catch(err){
         console.error(err);
