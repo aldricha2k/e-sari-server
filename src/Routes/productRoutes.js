@@ -139,8 +139,8 @@ router.put('/delete_product', async (req, res) => {
 
 
     try{
-        await cloudinary.api.delete_resources([image_id], { type: 'upload', resource_type: 'image'}).then(console.log); 
-        const DeleteProduct = await Seller.findOneAndUpdate({
+        await cloudinary.api.delete_resources([image_id], { type: 'upload', resource_type: 'image'}); 
+        await Seller.findOneAndUpdate({
             _id
         },{
             $pull: {
@@ -151,8 +151,9 @@ router.put('/delete_product', async (req, res) => {
         },{
             new: true
         });
+        const deleteProduct = await Product.findOneAndDelete({ _id: prodId}, {new: true});
 
-        res.send(DeleteProduct);
+        res.send(deleteProduct);
     }
     catch(err){
         console.error(err);
