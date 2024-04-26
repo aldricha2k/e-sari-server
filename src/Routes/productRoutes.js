@@ -62,15 +62,13 @@ router.post('/add_products', async (req, res) => {
         });
         await newProduct.save();
         
-        let products = {
-            product_id: newProduct._id
-        };
-
         const sellerProduct = await Seller.findOneAndUpdate({
             _id
         },{
             $push: {
-                products
+                products: {
+                    product_id: newProduct._id
+                }
             }
         },{
             new: true
