@@ -1,4 +1,5 @@
 require('./Models/Seller');
+require('./Models/Product');
 
 const express = require('express');
 const mongoose = require('mongoose');
