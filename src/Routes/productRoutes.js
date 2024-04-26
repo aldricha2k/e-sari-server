@@ -62,7 +62,7 @@ router.post('/add_products', async (req, res) => {
         });
         await newProduct.save();
         
-        let newSellProduct = {
+        let products = {
             product_id: newProduct._id
         };
 
@@ -70,7 +70,7 @@ router.post('/add_products', async (req, res) => {
             _id
         },{
             $push: {
-                newSellProduct
+                products
             }
         },{
             new: true
