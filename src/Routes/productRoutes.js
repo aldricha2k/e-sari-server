@@ -74,7 +74,8 @@ router.post('/add_products', async (req, res) => {
             new: true
         });
 
-        res.send(sellerProduct);
+        const fetchProduct = await Product.find({ seller_id: _id });
+        res.send(fetchProduct);
     }
     catch(err){
         console.error(err);
