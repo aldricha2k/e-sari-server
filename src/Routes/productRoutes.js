@@ -94,7 +94,8 @@ router.put('/edit_product', async (req, res) => {
         category,
         brand,
         price,
-        stock
+        stock,
+        barcode
     } = req.body;
 
     try{
@@ -106,9 +107,9 @@ router.put('/edit_product', async (req, res) => {
             newId = result.public_id;
         });
 
-        const UpdateProduct = await Seller.findOneAndUpdate({
-            _id,
-            "products._id": prodId,
+        await Product.findOneAndUpdate({
+            seller_id: _id,
+            'products._id': prodId
         },{
             $set: {
                 "products.$.product_name": product_name,
@@ -118,12 +119,14 @@ router.put('/edit_product', async (req, res) => {
                 "products.$.category": category,
                 "products.$.brand": brand,
                 "products.$.price": price,
-                "products.$.stock": stock
+                "products.$.stock": stock,
+                "products.$.barcode": barcode,
             }
         },{
                 new: true
         })
-        res.send(UpdateProduct);
+        const fetchProduct = await Product.find({ seller_id: _id });
+        res.send(fetchProduct);
     }
     catch(err){
         console.error(err);
