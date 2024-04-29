@@ -112,18 +112,16 @@ router.put('/edit_product', async (req, res) => {
             seller_id: _id,
         },{
             $set: {
-                "products.$.product_image": newUri,
-                'products.$.image_id': newId,
-                "products.$.product_name": product_name,
-                "products.$.product_description": product_description,
-                "products.$.category": category,
-                "products.$.brand": brand,
-                "products.$.price": price,
-                "products.$.stock": stock,
-                "products.$.barcode": barcode,
+                product_image: newUri,
+                image_id: newId,
+                product_name,
+                product_description,
+                category,
+                brand,
+                price,
+                stock,
+                barcode
             }
-        },{
-                new: true
         })
         const fetchProduct = await Product.find({ seller_id: _id });
         res.send(fetchProduct);
