@@ -108,13 +108,13 @@ router.put('/edit_product', async (req, res) => {
         });
 
         await Product.findOneAndUpdate({
+            _id: prodId,
             seller_id: _id,
-            'products._id': prodId
         },{
             $set: {
-                "products.$.product_name": product_name,
                 "products.$.product_image": newUri,
                 'products.$.image_id': newId,
+                "products.$.product_name": product_name,
                 "products.$.product_description": product_description,
                 "products.$.category": category,
                 "products.$.brand": brand,
