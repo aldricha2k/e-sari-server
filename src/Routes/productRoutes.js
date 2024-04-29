@@ -111,7 +111,6 @@ router.put('/edit_product', async (req, res) => {
             _id: prodId,
             seller_id: _id,
         },{
-            $set: {
                 product_image: newUri,
                 image_id: newId,
                 product_name,
@@ -121,7 +120,6 @@ router.put('/edit_product', async (req, res) => {
                 price,
                 stock,
                 barcode
-            }
         })
         const fetchProduct = await Product.find({ seller_id: _id });
         res.send(fetchProduct);
